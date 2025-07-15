@@ -1,0 +1,20 @@
+name: Run GitHub Inviter
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  inviter:
+    runs-on: ubuntu-latest
+
+    container:
+      image: wlcamargo/github_inviter
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run main.py
+        run: python3 main.py
