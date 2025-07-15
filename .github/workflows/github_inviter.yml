@@ -1,20 +1,26 @@
 name: Run GitHub Inviter
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  inviter:
+  run-in-container:
     runs-on: ubuntu-latest
 
-    container:
-      image: wlcamargo/github_inviter
-
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Run main.py
-        run: python3 main.py
+      - name: Pull docker image
+        run: docker pull wlcamargo/github_inviter
+
+      - name: Run main.py inside container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            wlcamargo/github_inviter \
+            python3 main.py
