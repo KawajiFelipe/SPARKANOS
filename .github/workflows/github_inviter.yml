@@ -14,6 +14,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: List files recursively for debug
+        run: ls -lR ${{ github.workspace }}
+
       - name: Pull docker image
         run: docker pull wlcamargo/github_inviter
 
