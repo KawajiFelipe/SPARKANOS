@@ -5,25 +5,40 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'   # 08:00 UTC 
+    - cron: '0 20 * * *'  # 20:00 UTC
 
 jobs:
-  run-in-container:
+  run-inviter:
     runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      OWNER: ${{ secrets.OWNER }}
+      GH_REPO: ${{ secrets.GH_REPO }}
+      LINK_PLANILHA: ${{ secrets.LINK_PLANILHA }}
+      GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: List files recursively for debug
-        run: ls -lR ${{ github.workspace }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-      - name: Pull docker image
-        run: docker pull wlcamargo/github_inviter
+      - name: Install dependencies
+        run: pip install -r requirements_gh_inviter.txt
 
-      - name: Run main.py inside container
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/app \
-            -w /app \
-            wlcamargo/github_inviter \
-            python3 main.py
+      - name: Save service account JSON
+        run: echo "$GCP_SERVICE_ACCOUNT" > key.json
+
+      - name: Run inviter
+        run: python3 github_inviter.py
+
+
+
+
+
