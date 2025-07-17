@@ -18,5 +18,7 @@ clique no link abaixo ou digite no navegador:
 
 http://localhost:8005/
 
+Link de acesso ao repositório: https://docs.google.com/spreadsheets/d/1xvDL2uK-eF5Pe97q3teX6snrmXaPZRriAuGX09kVBCU/edit?gid=0#gid=0
+
 ## Developer
 Wallace Camargo
