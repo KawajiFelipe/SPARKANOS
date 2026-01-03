@@ -17,7 +17,7 @@ cd applications/minio
 file ```.env```
 
 ### Access minio
-localhost:9000
+localhost:9001
 
 sample Minio UI:
 
