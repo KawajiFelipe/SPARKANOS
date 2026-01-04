@@ -13,7 +13,7 @@ result:
 ## Up Services
 ```
 #!/bin/bash
-PROJECT_ROOT="/home/wallace/docker/sparkanos"
+PROJECT_ROOT="/home/felipekawaji/treinamento_arruda/sparkanos"
 
 run_docker_compose() {
     local service_path="$1"
