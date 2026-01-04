@@ -78,7 +78,7 @@ services:
     image: *superset-image
     container_name: superset_init
     command: ["/app/docker/docker-init.sh"]
-    env_file: docker/.env
+    env_file: docker/.env-non-dev
     depends_on: *superset-depends-on
     user: ${SUPERSET_USER}
     volumes: *superset-volumes
@@ -92,6 +92,8 @@ services:
     container_name: superset_worker
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     env_file: docker/.env-non-dev
+    environment:
+      - SUPERSET_WEBSERVER_URL=http://superset_app:8088
     restart: unless-stopped
     depends_on: *superset-depends-on
     user: ${SUPERSET_USER}
