@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce
+    image: portainer/portainer-ce:latest
     container_name: portainer_local
     init: true
     restart: always
